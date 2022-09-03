@@ -31,13 +31,32 @@ public class DashboardActivity extends AppCompatActivity {
         Profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(DashboardActivity.this, Profile.class));
+                finish();
             }
         });
         notice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(DashboardActivity.this, Notice.class));
-                finish();
+            }
+        });
+        homeWork.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DashboardActivity.this, HomeWork.class));
+            }
+        });
+        attendance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DashboardActivity.this, Attendance.class));
+            }
+        });
+        grades.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DashboardActivity.this, Grades.class));
             }
         });
     }

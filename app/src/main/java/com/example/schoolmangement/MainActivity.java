@@ -32,6 +32,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity( new Intent(getApplicationContext(), Student_login_page.class));
             }
         });
+        Button button2 = findViewById(R.id.button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity( new Intent(getApplicationContext(), Teacher_login_page.class));
+            }
+        });
 
 
 

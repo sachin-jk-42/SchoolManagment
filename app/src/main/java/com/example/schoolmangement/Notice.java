@@ -1,8 +1,11 @@
 package com.example.schoolmangement;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -19,8 +22,10 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Notice extends AppCompatActivity {
+    private ImageButton Home, Profile;
     private FirebaseFirestore firebaseFirestore;
     private ArrayList<String> noticeList = new ArrayList<>();
     private RecyclerView list;
@@ -28,7 +33,25 @@ public class Notice extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice);
+
+        Home = findViewById(R.id.home);
+        Profile = findViewById(R.id.profile);
         list = findViewById(R.id.notice_list);
+
+        Home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Notice.this, DashboardActivity.class));
+                finish();
+            }
+        });
+        Profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Notice.this, Profile.class));
+                finish();
+            }
+        });
         list.setLayoutManager(new LinearLayoutManager(this));
 //        list.setHasFixedSize(true);
         NoticeAdapter adapter = new NoticeAdapter(getApplicationContext(),noticeList);
@@ -40,8 +63,8 @@ public class Notice extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful())
                         for (QueryDocumentSnapshot data : task.getResult()) {
-                            String temp = data.toObject(String.class);
-                            noticeList.add(temp);
+                            Map<String,Object> hash= data.getData();
+                            noticeList.add((String)hash.get("message"));
                         }
                         Log.v("message",noticeList.toString());
                         adapter.notifyDataSetChanged();
