@@ -24,11 +24,14 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
     @Override
     public NoticeAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.notice_item,parent, false);
+        return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull NoticeAdapter.MyViewHolder holder, int position) {
-
+        holder.message.setText(noticeList.get(position));
+        String temp = String.valueOf(position+1)+ ". ";
+        holder.sno.setText(temp);
     }
 
     @Override
@@ -39,8 +42,8 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
         private TextView sno, message;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            sno = itemView.findViewById(R.id.)
-            message = itemView.findViewById(R.id.)
+            sno = itemView.findViewById(R.id.sno);
+            message = itemView.findViewById(R.id.message);
         }
     }
 }

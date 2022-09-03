@@ -1,6 +1,7 @@
 package com.example.schoolmangement;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -28,10 +29,10 @@ public class Notice extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice);
         list = findViewById(R.id.notice_list);
+        list.setLayoutManager(new LinearLayoutManager(this));
+//        list.setHasFixedSize(true);
         NoticeAdapter adapter = new NoticeAdapter(getApplicationContext(),noticeList);
-        ArrayAdapter<String> noticeAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,noticeList);
-        list.setLayoutManager(new LinearLayoutManager(getApplicationContext());
-        list.setAdapter(noticeAdapter);
+        list.setAdapter(adapter);
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseFirestore.collection("notice").orderBy("message", Query.Direction.DESCENDING).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -42,7 +43,8 @@ public class Notice extends AppCompatActivity {
                             String temp = data.toObject(String.class);
                             noticeList.add(temp);
                         }
-                        noticeAdapter.notifyDataSetChanged();
+                        Log.v("message",noticeList.toString());
+                        adapter.notifyDataSetChanged();
                     }
                 });
 
