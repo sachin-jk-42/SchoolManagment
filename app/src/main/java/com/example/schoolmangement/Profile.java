@@ -31,6 +31,7 @@ public class Profile extends AppCompatActivity {
         name = findViewById(R.id.name_display);
         aclass = findViewById(R.id.class_display);
         roll_no = findViewById(R.id.roll_display);
+
         firebaseFirestore =  FirebaseFirestore.getInstance();
         firebaseFirestore.collection("user")
                 .get()

@@ -31,9 +31,6 @@ public class Student_login_page extends Activity {
         setContentView(R.layout.activity_student_login_page);
         ConstraintLayout constraintLayout = findViewById(R.id.layout);
 
-        Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
-        startActivity(intent);
-
         Username = findViewById(R.id.sign_in_email_input);
         Password = findViewById(R.id.sign_in_password_input);
         login = findViewById(R.id.Sign_in_button);

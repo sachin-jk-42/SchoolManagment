@@ -1,13 +1,19 @@
 package com.example.schoolmangement;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,6 +28,8 @@ public class Attendance extends AppCompatActivity {
     private TextView textView1, textView2, textView3, textView4, textView5, textView6, textView7, textView8;
     private TextView textView9, textView10, textView11, textView12,textView13;
     private FirebaseFirestore firebaseFirestore;
+    public DrawerLayout drawerLayout;
+    public ActionBarDrawerToggle actionBarDrawerToggle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +65,15 @@ public class Attendance extends AppCompatActivity {
                 finish();
             }
         });
+        drawerLayout = findViewById(R.id.attendance_work);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
+        // pass the Open and Close toggle for the drawer layout listener
+        // to toggle the button
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+        // to make the Navigation drawer icon always appear on the action bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseFirestore.collection("attendance").get()
@@ -82,10 +99,53 @@ public class Attendance extends AppCompatActivity {
                                 textView10.setText("Occtober: "+String.valueOf(hash.get("october"))+"/31");
                                 textView11.setText("November: "+String.valueOf(hash.get("november"))+"/30");
                                 textView12.setText("December: "+String.valueOf(hash.get("december"))+"/31");
-                                textView13.setText("Total: "+String.valueOf(sum)+"/31");
+                                textView13.setText("Total: "+String.valueOf(sum)+"/365");
                             }
                     }
                 });
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.navigation_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.nav_dashboard:
+                Toast.makeText(this, "Dashboard", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Attendance.this, DashboardActivity.class));
+                finish();
+                break;
+            case R.id.nav_attendance:
+                Toast.makeText(this, "Attendance", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Attendance.this, Attendance.class));
+                finish();
+                break;
+            case R.id.nav_grades:
+                Toast.makeText(this, "Grades", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Attendance.this, Grades.class));
+                finish();
+                break;
+            case R.id.nav_homework:
+                Toast.makeText(this, "Home Work", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Attendance.this, HomeWork.class));
+                finish();
+                break;
+            case R.id.nav_notice:
+                Toast.makeText(this, "Notice", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Attendance.this, Notice.class));
+                finish();
+                break;
+            case R.id.nav_profile:
+                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Attendance.this, Profile.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -50,7 +50,7 @@ public class Teacher_login_page extends AppCompatActivity {
                             String password_string = Password.getText().toString();
                             if (user.getUser().equals(email_string) && user.getPassword().equals(password_string)) {
                                 is_matching = true;
-                                Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), TeacherDashboard.class);
                                 startActivity(intent);
                                 break;
                             }

@@ -18,7 +18,7 @@ public class TeacherDashboard extends AppCompatActivity {
         grades = findViewById(R.id.grades);
         attendance = findViewById(R.id.attendance);
         homeWork = findViewById(R.id.homework);
-        notice = findViewById(R.id.notice);
+        notice = findViewById(R.id.tnotice);
 
         notice.setOnClickListener(new View.OnClickListener() {
             @Override
